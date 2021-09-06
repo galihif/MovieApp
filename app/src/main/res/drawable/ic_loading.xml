@@ -4,7 +4,7 @@
 
     <item
         android:bottom="-1dp"
-        android:drawable="#6FB6B6B6"
+        android:drawable="@color/placeholder"
         android:left="1dp"
         android:right="1dp"
         android:top="1dp" />

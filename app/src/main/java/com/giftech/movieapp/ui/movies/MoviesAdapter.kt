@@ -1,5 +1,6 @@
 package com.giftech.movieapp.ui.movies
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.giftech.movieapp.R
 import com.giftech.movieapp.data.FilmEntity
 import com.giftech.movieapp.databinding.ItemFilmBinding
+import com.giftech.movieapp.ui.detail.DetailActivity
 
 class MoviesAdapter:RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
@@ -46,6 +48,12 @@ class MoviesAdapter:RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error))
                     .into(ivPoster)
+
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_FILM, movie)
+                    itemView.context.startActivity(intent)
+                }
             }
         }
 
