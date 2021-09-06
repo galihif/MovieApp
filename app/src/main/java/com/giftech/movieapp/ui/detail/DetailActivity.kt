@@ -2,6 +2,7 @@ package com.giftech.movieapp.ui.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.giftech.movieapp.R
@@ -12,6 +13,7 @@ class DetailActivity : AppCompatActivity() {
 
     companion object{
         const val EXTRA_FILM = "EXTRA_FILM"
+        const val IS_MOVIE = "IS_MOVIE"
     }
 
     private lateinit var binding: ActivityDetailBinding
@@ -21,10 +23,20 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailViewModel::class.java]
+
         val extras = intent.extras
         if(extras != null){
-            val film = extras.getParcelable<FilmEntity>(EXTRA_FILM)
-            populateView(film)
+            val isMovie = extras.getBoolean(IS_MOVIE)
+            val filmId = extras.getInt(EXTRA_FILM)
+            val film:FilmEntity
+            if(isMovie){
+                film = viewModel.getMovieById(filmId)
+                populateView(film)
+            }else{
+                film = viewModel.getTvById(filmId)
+                populateView(film)
+            }
         }
     }
 
