@@ -25,7 +25,7 @@ object MovieDummy {
                 "The Incredible Hulk",
                 "Superhero, Action",
                 "Dr Bruce Banner subjects himself to high levels of gamma radiation which triggers his transformation into a huge green creature, the Hulk, whenever he experiences negative emotions such as anger.",
-                "http://www.movienewsletters.net/photos/277217R1.jpg"
+                "https://upload.wikimedia.org/wikipedia/id/thumb/e/e6/Hulk_poster.jpg/220px-Hulk_poster.jpg"
             )
         )
         movies.add(

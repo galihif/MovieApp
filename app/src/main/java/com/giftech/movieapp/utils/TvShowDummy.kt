@@ -10,40 +10,37 @@ object TvShowDummy {
         tvshows.add(
             FilmEntity(
                 1,
-                "Iron Man",
+                "WandaVision",
                 "Superhero, Action",
-                "When Tony Stark, an industrialist," +
-                        " is captured, he constructs a high-tech armoured suit to escape. " +
-                        "Once he manages to escape, he decides to use his suit to fight " +
-                        "against evil forces to save the world.",
-                "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMoliPRgy5xgoyg_eZmuKyptS9s1weVooX5tLqTBnGBYMRtE-t"
+                "Living idealized suburban lives, super-powered beings Wanda and Vision begin to suspect that everything is not as it seems.",
+                "https://m.media-amazon.com/images/M/MV5BZGEwYmMwZmMtMTQ3MS00YWNhLWEwMmQtZTU5YTIwZmJjZGQ0XkEyXkFqcGdeQXVyMTI5MzA5MjA1._V1_.jpg"
             )
         )
         tvshows.add(
             FilmEntity(
                 2,
-                "The Incredible Hulk",
+                "The Falcon and The Winter Soldier",
                 "Superhero, Action",
-                "Dr Bruce Banner subjects himself to high levels of gamma radiation which triggers his transformation into a huge green creature, the Hulk, whenever he experiences negative emotions such as anger.",
-                "http://www.movienewsletters.net/photos/277217R1.jpg"
+                "Falcon and the Winter Soldier are a mismatched duo who team up for a global adventure that will test their survival skills -- as well as their patience.",
+                "https://berlinbearsnewsonline.com/wp-content/uploads/2021/03/tag_teaser_digital_keyart_v5_lg-608x900.jpg"
             )
         )
         tvshows.add(
             FilmEntity(
                 3,
-                "Iron Man 2",
+                "Loki",
                 "Superhero, Action",
-                "With the world now aware of his identity as Iron Man, Tony Stark must contend with both his declining health and a vengeful mad man with ties to his father's legacy.",
-                "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_FMjpg_UX1000_.jpg"
+                "Loki, the God of Mischief, steps out of his brother's shadow to embark on an adventure that takes place after the events of \"Avengers: Endgame.\"",
+                "https://cdn06.pramborsfm.com/storage/app/media/Prambors/Editorial/serial-loki-1-20210608080222.jpg?tr=w-800"
             )
         )
         tvshows.add(
             FilmEntity(
                 4,
-                "Thor",
+                "What If...?",
                 "Superhero, Action",
-                "Thor is exiled by his father, Odin, the King of Asgard, to the Earth to live among mortals. When he lands on Earth, his trusted weapon Mjolnir is discovered and captured by S.H.I.E.L.D.",
-                "https://upload.wikimedia.org/wikipedia/en/9/95/Thor_%28film%29_poster.jpg"
+                "Reimagining noteworthy events in the Marvel Cinematic Universe and creating a multiverse of infinite possibilities.",
+                "https://media.comicbook.com/2021/07/marvel-what-if-tv-series-poster-official-disney-plus-1274908.jpeg?auto=webp&width=1280&height=1897&crop=1280:1897,smart"
             )
         )
         tvshows.add(
@@ -58,46 +55,46 @@ object TvShowDummy {
         tvshows.add(
             FilmEntity(
                 6,
-                "The Avengers",
+                "Start-Up",
                 "Superhero, Action",
-                "Nick Fury is compelled to launch the Avengers Initiative when Loki poses a threat to planet Earth. His squad of superheroes put their minds together to accomplish the task.",
-                "https://upload.wikimedia.org/wikipedia/id/f/f9/TheAvengers2012Poster.jpg"
+                "Seo Dal Mi has dreams of becoming Korea's own Steve Jobs, and with her genius first love, an investor, and a business insider by her side, her dream may be closer than she thinks.",
+                "https://upload.wikimedia.org/wikipedia/en/1/12/Start-Up_2020.jpg"
             )
         )
         tvshows.add(
             FilmEntity(
                 7,
-                "Iron Man 3",
+                "Crash Landing on You",
                 "Superhero, Action",
-                "Tony Stark encounters a formidable foe called the Mandarin. After failing to defeat his enemy, Tony embarks on a journey of self-discovery as he fights against the powerful Mandarin.",
-                "https://upload.wikimedia.org/wikipedia/id/d/d5/Iron_Man_3_theatrical_poster.jpg"
+                "A paragliding mishap drops a South Korean heiress in North Korea - and into the life of an army officer, who decides he will help her hide.",
+                "https://asianwiki.com/images/f/f8/Crash_Landing_on_You-P1.jpg"
             )
         )
         tvshows.add(
             FilmEntity(
                 8,
-                "Thor: The Dark World",
+                "It's Okay to Not Be Okay",
                 "Superhero, Action",
-                "Thor sets out on a journey to defeat Malekith, the leader of the Dark Elves when he returns to Asgard to retrieve a dangerous weapon and fulfill his desire of destroying the Nine Realms.",
-                "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMoliPRgy5xgoyg_eZmuKyptS9s1weVooX5tLqTBnGBYMRtE-t"
+                "A road to emotional healing opens up for an antisocial children's book author and an employee in a psychiatric hospital.",
+                "https://i.mydramalist.com/xw3xX_4f.jpg"
             )
         )
         tvshows.add(
             FilmEntity(
                 9,
-                "Captain America: The Winter Soldier",
+                "Monsters at Work",
                 "Superhero, Action",
-                "As Steve Rogers adapts to the complexities of a contemporary world, he joins Natasha Romanoff and Sam Wilson in his mission to uncover the secret behind a deadly, mysterious assassin.",
-                "https://m.media-amazon.com/images/M/MV5BMzA2NDkwODAwM15BMl5BanBnXkFtZTgwODk5MTgzMTE@._V1_FMjpg_UX1000_.jpg"
+                "Mechanic Tylor Tuskmon has big dreams of working his way up the ranks to the Laugh Floor at Monsters Inc.",
+                "https://www.themoviedb.org/t/p/original/2gxgwhcuSmI5xtexb0t9zGj43FS.jpg"
             )
         )
         tvshows.add(
             FilmEntity(
                 10,
-                "Guardians of the Galaxy",
+                "SpongeBob SquarePants",
                 "Superhero, Action",
-                "Peter escapes from the planet Morag with a valuable orb that Ronan the Accuser wants. He eventually forms a group with unwilling heroes to stop Ronan.",
-                "https://upload.wikimedia.org/wikipedia/en/3/33/Guardians_of_the_Galaxy_%28film%29_poster.jpg"
+                "A yellow sea sponge named SpongeBob SquarePants, who enjoys being a cook at Krusty Krab, lives in the Pacific Ocean. He embarks on various adventures with his friends at Bikini Bottom.",
+                "https://picfiles.alphacoders.com/108/108129.jpg"
             )
         )
 
