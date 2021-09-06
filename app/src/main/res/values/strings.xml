@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">MovieApp</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="judul">Ini Judul Film</string>
-    <string name="genre">Ini genre film</string>
+    <string name="sinopsis">
+        The Avengers must stop Thanos,
+        an intergalactic warlord, from getting his hands on all the infinity stones.
+        However, Thanos is prepared to go to any lengths to carry out his insane plan.
+    </string>
+    <string name="genre">Action, Superhero</string>
+    <string name="title">Avengers Infinity War</string>
 </resources>
