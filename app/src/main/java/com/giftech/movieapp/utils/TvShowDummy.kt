@@ -18,7 +18,7 @@ object TvShowDummy {
                 "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMoliPRgy5xgoyg_eZmuKyptS9s1weVooX5tLqTBnGBYMRtE-t"
             )
         )
-                tvshows.add(
+        tvshows.add(
             FilmEntity(
                 "Ironman",
                 "Superhero, Action",
@@ -29,7 +29,7 @@ object TvShowDummy {
                 "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMoliPRgy5xgoyg_eZmuKyptS9s1weVooX5tLqTBnGBYMRtE-t"
             )
         )
-                tvshows.add(
+        tvshows.add(
             FilmEntity(
                 "Ironman",
                 "Superhero, Action",
@@ -40,7 +40,7 @@ object TvShowDummy {
                 "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMoliPRgy5xgoyg_eZmuKyptS9s1weVooX5tLqTBnGBYMRtE-t"
             )
         )
-                tvshows.add(
+        tvshows.add(
             FilmEntity(
                 "Ironman",
                 "Superhero, Action",
@@ -51,7 +51,7 @@ object TvShowDummy {
                 "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMoliPRgy5xgoyg_eZmuKyptS9s1weVooX5tLqTBnGBYMRtE-t"
             )
         )
-                tvshows.add(
+        tvshows.add(
             FilmEntity(
                 "Ironman",
                 "Superhero, Action",
@@ -62,7 +62,7 @@ object TvShowDummy {
                 "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMoliPRgy5xgoyg_eZmuKyptS9s1weVooX5tLqTBnGBYMRtE-t"
             )
         )
-                tvshows.add(
+        tvshows.add(
             FilmEntity(
                 "Ironman",
                 "Superhero, Action",
@@ -73,7 +73,7 @@ object TvShowDummy {
                 "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMoliPRgy5xgoyg_eZmuKyptS9s1weVooX5tLqTBnGBYMRtE-t"
             )
         )
-                tvshows.add(
+        tvshows.add(
             FilmEntity(
                 "Ironman",
                 "Superhero, Action",
@@ -84,7 +84,7 @@ object TvShowDummy {
                 "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMoliPRgy5xgoyg_eZmuKyptS9s1weVooX5tLqTBnGBYMRtE-t"
             )
         )
-                tvshows.add(
+        tvshows.add(
             FilmEntity(
                 "Ironman",
                 "Superhero, Action",
@@ -95,7 +95,7 @@ object TvShowDummy {
                 "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMoliPRgy5xgoyg_eZmuKyptS9s1weVooX5tLqTBnGBYMRtE-t"
             )
         )
-                tvshows.add(
+        tvshows.add(
             FilmEntity(
                 "Ironman",
                 "Superhero, Action",
@@ -106,7 +106,7 @@ object TvShowDummy {
                 "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMoliPRgy5xgoyg_eZmuKyptS9s1weVooX5tLqTBnGBYMRtE-t"
             )
         )
-                tvshows.add(
+        tvshows.add(
             FilmEntity(
                 "Ironman",
                 "Superhero, Action",
@@ -117,7 +117,7 @@ object TvShowDummy {
                 "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMoliPRgy5xgoyg_eZmuKyptS9s1weVooX5tLqTBnGBYMRtE-t"
             )
         )
-                tvshows.add(
+        tvshows.add(
             FilmEntity(
                 "Ironman",
                 "Superhero, Action",
