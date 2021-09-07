@@ -18,6 +18,6 @@ class TvShowViewModelTest {
     fun getTvShow() {
         val listTv = viewModel.getTvShow()
         assertNotNull(listTv)
-        assertEquals(11,listTv.size)
+        assertEquals(10,listTv.size)
     }
 }
