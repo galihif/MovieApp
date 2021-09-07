@@ -16,7 +16,6 @@ class MoviesAdapter:RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
     private var listMovie = ArrayList<FilmEntity>()
 
     fun setListMovie(listMovie:ArrayList<FilmEntity>){
-        if(listMovie == null) return
         this.listMovie.clear()
         this.listMovie.addAll(listMovie)
     }
@@ -24,7 +23,7 @@ class MoviesAdapter:RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MoviesAdapter.MovieViewHolder {
+    ): MovieViewHolder {
         val itemFilmBinding = ItemFilmBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(itemFilmBinding)
     }
