@@ -16,8 +16,6 @@ class TvShowAdapter: RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
     private var listTvShow = ArrayList<FilmEntity>()
 
     fun setListTvShow(listTvShow:ArrayList<FilmEntity>){
-        if(listTvShow == null) return
-
         this.listTvShow.clear()
         this.listTvShow.addAll(listTvShow)
     }
@@ -25,12 +23,12 @@ class TvShowAdapter: RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): TvShowAdapter.TvShowViewHolder {
+    ): TvShowViewHolder {
         val itemFilmBinding = ItemFilmBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TvShowAdapter.TvShowViewHolder(itemFilmBinding)
+        return TvShowViewHolder(itemFilmBinding)
     }
 
-    override fun onBindViewHolder(holder: TvShowAdapter.TvShowViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
         val tvShow = listTvShow[position]
         holder.bind(tvShow)
     }
