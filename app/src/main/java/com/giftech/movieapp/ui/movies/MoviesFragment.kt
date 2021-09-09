@@ -1,6 +1,7 @@
 package com.giftech.movieapp.ui.movies
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.giftech.movieapp.databinding.FragmentMoviesBinding
+import com.giftech.movieapp.viewmodel.ViewModelFactory
 
 class MoviesFragment : Fragment() {
 
@@ -25,10 +27,18 @@ class MoviesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if(activity!=null){
-            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MoviesViewModel::class.java]
-            val listMovie = viewModel.getMovies()
+
+            val factory = ViewModelFactory.getInstance()
+            val viewModel = ViewModelProvider(this, factory)[MoviesViewModel::class.java]
+
             val moviesAdapter = MoviesAdapter()
-            moviesAdapter.setListMovie(listMovie)
+//            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MoviesViewModel::class.java]
+            viewModel.getMovies().observe(viewLifecycleOwner, {movieRes ->
+                moviesAdapter.setListMovie(movieRes)
+                for (movie in movieRes){
+                    Log.d("okhttp", movie.id.toString())
+                }
+            })
 
             with(binding.rvMovies){
                 layoutManager = LinearLayoutManager(context)

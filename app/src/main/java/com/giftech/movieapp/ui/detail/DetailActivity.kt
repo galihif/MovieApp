@@ -8,6 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.giftech.movieapp.R
 import com.giftech.movieapp.data.FilmEntity
 import com.giftech.movieapp.databinding.ActivityDetailBinding
+import com.giftech.movieapp.viewmodel.ViewModelFactory
 
 class DetailActivity : AppCompatActivity() {
 
@@ -23,19 +24,21 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailViewModel::class.java]
+        val factory = ViewModelFactory.getInstance()
+        val viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         val extras = intent.extras
         if(extras != null){
             val isMovie = extras.getBoolean(IS_MOVIE)
             val filmId = extras.getInt(EXTRA_FILM)
-            val film:FilmEntity
+
             if(isMovie){
-                film = viewModel.getMovieById(filmId)
-                populateView(film)
+                viewModel.getMovieById(filmId).observe(this, {movieRes ->
+                    populateView(movieRes)
+                })
             }else{
-                film = viewModel.getTvById(filmId)
-                populateView(film)
+//                film = viewModel.getTvById(filmId)
+//                populateView(film)
             }
         }
     }
@@ -46,8 +49,9 @@ class DetailActivity : AppCompatActivity() {
             tvGenre.text = film?.genre
             tvSinopsis.text = film?.sinopsis
 
+            val posterUrl = "https://image.tmdb.org/t/p/w500/${film?.poster}"
             Glide.with(this@DetailActivity)
-                .load(film?.poster)
+                .load(posterUrl)
                 .apply(
                     RequestOptions.placeholderOf(R.drawable.ic_loading)
                         .error(R.drawable.ic_error))

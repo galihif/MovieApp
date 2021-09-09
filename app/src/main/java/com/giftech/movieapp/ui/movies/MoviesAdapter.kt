@@ -18,6 +18,7 @@ class MoviesAdapter:RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
     fun setListMovie(listMovie:ArrayList<FilmEntity>){
         this.listMovie.clear()
         this.listMovie.addAll(listMovie)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(
@@ -41,8 +42,9 @@ class MoviesAdapter:RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
             with(binding){
                 tvItemTitle.text = movie.title
                 tvItemGenre.text = movie.genre
+                val posterUrl = "https://image.tmdb.org/t/p/w500/${movie.poster}"
                 Glide.with(itemView.context)
-                    .load(movie.poster)
+                    .load(posterUrl)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error))
