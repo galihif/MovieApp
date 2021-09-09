@@ -3,6 +3,7 @@ package com.giftech.movieapp.data.source.remote.api
 import com.giftech.movieapp.data.source.remote.MovieResponse
 import com.giftech.movieapp.data.source.remote.api.ApiConfig.Companion.API_KEY
 import com.giftech.movieapp.data.source.remote.response.DetailMovieResponse
+import com.giftech.movieapp.data.source.remote.response.TvResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -13,5 +14,8 @@ interface ApiService {
 
     @GET("/3/movie/{id}?api_key=$API_KEY")
     fun getMoviesById(@Path("id") id:Int):retrofit2.Call<DetailMovieResponse>
+
+    @GET("/3/tv/popular?api_key=$API_KEY")
+    fun getTvs(): retrofit2.Call<TvResponse>
 
 }

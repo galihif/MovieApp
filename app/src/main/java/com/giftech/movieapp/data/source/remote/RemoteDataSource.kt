@@ -3,6 +3,8 @@ package com.giftech.movieapp.data.source.remote
 import android.util.Log
 import com.giftech.movieapp.data.source.remote.api.ApiConfig
 import com.giftech.movieapp.data.source.remote.response.DetailMovieResponse
+import com.giftech.movieapp.data.source.remote.response.TvResponse
+import com.giftech.movieapp.data.source.remote.response.TvResultsItem
 import retrofit2.Call
 import retrofit2.Response
 
@@ -25,7 +27,7 @@ class RemoteDataSource {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if(response.isSuccessful){
                     val listResultsItem = response.body()?.results
-                    callback.onResultsResponseReceived(listResultsItem as List<ResultsItem>)
+                    callback.onResultsResponseReceived(listResultsItem as List<MovieResultsItem>)
                 }
             }
 
@@ -50,7 +52,24 @@ class RemoteDataSource {
             }
 
             override fun onFailure(call: Call<DetailMovieResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.e("TAG", "onFailure: ${t.message.toString()}")
+            }
+
+        })
+    }
+
+    fun getAllTvs(callback:LoadTvsCallback){
+        val client = ApiConfig.getApiService().getTvs()
+        client.enqueue(object : retrofit2.Callback<TvResponse>{
+            override fun onResponse(call: Call<TvResponse>, response: Response<TvResponse>) {
+                if(response.isSuccessful){
+                    val tvRes = response.body()?.results
+                    callback.onResultsResponseReceived(tvRes as List<TvResultsItem>)
+                }
+            }
+
+            override fun onFailure(call: Call<TvResponse>, t: Throwable) {
+                Log.e("TAG", "onFailure: ${t.message.toString()}")
             }
 
         })
@@ -58,11 +77,15 @@ class RemoteDataSource {
 
 
     interface LoadMoviesCallback {
-        fun onResultsResponseReceived(results: List<ResultsItem>)
+        fun onResultsResponseReceived(results: List<MovieResultsItem>)
     }
 
     interface LoadMoviesByIdCallback {
         fun onResultsResponseReceived(results: DetailMovieResponse)
+    }
+
+    interface LoadTvsCallback {
+        fun onResultsResponseReceived(results: List<TvResultsItem>)
     }
 
 }
