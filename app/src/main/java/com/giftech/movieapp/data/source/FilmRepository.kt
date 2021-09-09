@@ -6,6 +6,7 @@ import com.giftech.movieapp.data.FilmEntity
 import com.giftech.movieapp.data.source.remote.MovieResultsItem
 import com.giftech.movieapp.data.source.remote.RemoteDataSource
 import com.giftech.movieapp.data.source.remote.response.DetailMovieResponse
+import com.giftech.movieapp.data.source.remote.response.DetailTvResponse
 import com.giftech.movieapp.data.source.remote.response.TvResultsItem
 
 class FilmRepository private constructor(private val remoteDataSource: RemoteDataSource)
@@ -95,6 +96,19 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
 
     override fun getTvById(id: Int): LiveData<FilmEntity> {
         val tv = MutableLiveData<FilmEntity>()
+
+        remoteDataSource.getTvById(id, object : RemoteDataSource.LoadTvByIdCallback{
+            override fun onResultsResponseReceived(results: DetailTvResponse) {
+                val tvRes = FilmEntity()
+                tvRes.id = results.id
+                tvRes.title = results.name
+                tvRes.genre = results.genres.toString()
+                tvRes.sinopsis = results.overview
+                val posterUrl = "https://image.tmdb.org/t/p/w500/${results.posterPath}"
+                tvRes.poster = posterUrl
+                tv.postValue(tvRes)
+            }
+        })
 
         return tv
     }

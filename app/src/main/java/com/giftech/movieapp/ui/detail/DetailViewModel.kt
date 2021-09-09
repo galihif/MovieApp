@@ -24,6 +24,8 @@ class DetailViewModel(private val filmRepository: FilmRepository): ViewModel() {
 
     fun getMovieById(movieId:Int):LiveData<FilmEntity> = filmRepository.getMoviesById(movieId)
 
+    fun getTvById(movieId:Int):LiveData<FilmEntity> = filmRepository.getTvById(movieId)
+
 //    fun getTvById(tvId:Int):FilmEntity {
 //        lateinit var mTvShow:FilmEntity
 //        for (tvShow in listTvShow){

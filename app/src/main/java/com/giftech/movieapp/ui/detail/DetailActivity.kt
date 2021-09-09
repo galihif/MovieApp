@@ -37,8 +37,9 @@ class DetailActivity : AppCompatActivity() {
                     populateView(movieRes)
                 })
             }else{
-//                film = viewModel.getTvById(filmId)
-//                populateView(film)
+                viewModel.getTvById(filmId).observe(this, {tvRes ->
+                    populateView(tvRes)
+                })
             }
         }
     }
