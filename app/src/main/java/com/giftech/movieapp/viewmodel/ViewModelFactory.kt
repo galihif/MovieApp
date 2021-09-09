@@ -6,6 +6,7 @@ import com.giftech.movieapp.data.source.FilmRepository
 import com.giftech.movieapp.di.Injection
 import com.giftech.movieapp.ui.detail.DetailViewModel
 import com.giftech.movieapp.ui.movies.MoviesViewModel
+import com.giftech.movieapp.ui.tvshow.TvShowViewModel
 
 class ViewModelFactory private constructor(private val mFilmRepository: FilmRepository)
     :ViewModelProvider.NewInstanceFactory(){
@@ -30,6 +31,9 @@ class ViewModelFactory private constructor(private val mFilmRepository: FilmRepo
             }
             modelClass.isAssignableFrom(DetailViewModel::class.java)->{
                 return DetailViewModel(mFilmRepository) as T
+            }
+            modelClass.isAssignableFrom(TvShowViewModel::class.java)->{
+                return TvShowViewModel(mFilmRepository) as T
             }
 
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
