@@ -92,4 +92,10 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
 
         return listTv
     }
+
+    override fun getTvById(id: Int): LiveData<FilmEntity> {
+        val tv = MutableLiveData<FilmEntity>()
+
+        return tv
+    }
 }

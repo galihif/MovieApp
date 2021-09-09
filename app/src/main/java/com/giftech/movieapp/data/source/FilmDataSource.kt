@@ -9,4 +9,6 @@ interface FilmDataSource {
     fun getMoviesById(id:Int):LiveData<FilmEntity>
 
     fun getAllTvs():LiveData<ArrayList<FilmEntity>>
+
+    fun getTvById(id:Int):LiveData<FilmEntity>
 }
