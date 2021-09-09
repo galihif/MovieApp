@@ -41,7 +41,7 @@ class TvShowAdapter: RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
         fun bind(tvShow:FilmEntity){
             with(binding){
                 tvItemTitle.text = tvShow.title
-                tvItemGenre.text = tvShow.genre
+//                tvItemGenre.text = tvShow.genre
                 Glide.with(itemView.context)
                     .load(tvShow.poster)
                     .apply(
