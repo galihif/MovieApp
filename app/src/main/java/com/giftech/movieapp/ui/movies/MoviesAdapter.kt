@@ -42,9 +42,8 @@ class MoviesAdapter:RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
             with(binding){
                 tvItemTitle.text = movie.title
                 tvItemGenre.text = movie.genre
-                val posterUrl = "https://image.tmdb.org/t/p/w500/${movie.poster}"
                 Glide.with(itemView.context)
-                    .load(posterUrl)
+                    .load(movie.poster)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error))
