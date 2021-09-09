@@ -1,11 +1,13 @@
 package com.giftech.movieapp.ui.tvshow
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.giftech.movieapp.data.FilmEntity
-import com.giftech.movieapp.utils.TvShowDummy
+import com.giftech.movieapp.data.source.FilmRepository
 
-class TvShowViewModel:ViewModel() {
+class TvShowViewModel(private val filmRepository: FilmRepository):ViewModel() {
 
-    fun getTvShow():ArrayList<FilmEntity> = TvShowDummy.generateDummyTvShows()
+//    fun getTvShow():ArrayList<FilmEntity> = TvShowDummy.generateDummyTvShows()
 
+    fun getTvShow():LiveData<ArrayList<FilmEntity>> = filmRepository.getAllTvs()
 }

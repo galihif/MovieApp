@@ -18,6 +18,7 @@ class TvShowAdapter: RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
     fun setListTvShow(listTvShow:ArrayList<FilmEntity>){
         this.listTvShow.clear()
         this.listTvShow.addAll(listTvShow)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(

@@ -3,9 +3,10 @@ package com.giftech.movieapp.data.source
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.giftech.movieapp.data.FilmEntity
+import com.giftech.movieapp.data.source.remote.MovieResultsItem
 import com.giftech.movieapp.data.source.remote.RemoteDataSource
-import com.giftech.movieapp.data.source.remote.ResultsItem
 import com.giftech.movieapp.data.source.remote.response.DetailMovieResponse
+import com.giftech.movieapp.data.source.remote.response.TvResultsItem
 
 class FilmRepository private constructor(private val remoteDataSource: RemoteDataSource)
     :FilmDataSource{
@@ -24,7 +25,7 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
         val movieResults = MutableLiveData<ArrayList<FilmEntity>>()
 
         remoteDataSource.getAllMovies(object : RemoteDataSource.LoadMoviesCallback{
-            override fun onResultsResponseReceived(results: List<ResultsItem>) {
+            override fun onResultsResponseReceived(results: List<MovieResultsItem>) {
                 val movieList = ArrayList<FilmEntity>()
 
                 for(movieRes in results){
@@ -33,7 +34,8 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
                     movie.title = movieRes.title
                     movie.genre = movieRes.genreIds.toString()
                     movie.sinopsis = movieRes.overview
-                    movie.poster = movieRes.posterPath
+                    val posterUrl = "https://image.tmdb.org/t/p/w500/${movieRes.posterPath}"
+                    movie.poster = posterUrl
 
                     movieList.add(movie)
                 }
@@ -55,12 +57,39 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
                 movieRes.title = results.title
                 movieRes.genre = results.genres.toString()
                 movieRes.sinopsis = results.overview
-                movieRes.poster = results.posterPath
+                val posterUrl = "https://image.tmdb.org/t/p/w500/${results.posterPath}"
+                movieRes.poster = posterUrl
 
                 movie.postValue(movieRes)
             }
         })
 
         return movie
+    }
+
+    override fun getAllTvs(): LiveData<ArrayList<FilmEntity>> {
+        val listTv = MutableLiveData<ArrayList<FilmEntity>>()
+
+        remoteDataSource.getAllTvs(object : RemoteDataSource.LoadTvsCallback{
+            override fun onResultsResponseReceived(results: List<TvResultsItem>) {
+                val listTvRes = ArrayList<FilmEntity>()
+
+                for (res in results){
+                    val tvRes = FilmEntity()
+                    tvRes.id = res.id
+                    tvRes.title = res.name
+                    tvRes.genre = res.genreIds.toString()
+                    tvRes.sinopsis = res.overview
+                    val posterUrl = "https://image.tmdb.org/t/p/w500/${res.posterPath}"
+                    tvRes.poster = posterUrl
+                    listTvRes.add(tvRes)
+                }
+
+                listTv.postValue(listTvRes)
+            }
+
+        })
+
+        return listTv
     }
 }
