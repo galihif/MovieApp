@@ -49,9 +49,8 @@ class DetailActivity : AppCompatActivity() {
             tvGenre.text = film?.genre
             tvSinopsis.text = film?.sinopsis
 
-            val posterUrl = "https://image.tmdb.org/t/p/w500/${film?.poster}"
             Glide.with(this@DetailActivity)
-                .load(posterUrl)
+                .load(film?.poster)
                 .apply(
                     RequestOptions.placeholderOf(R.drawable.ic_loading)
                         .error(R.drawable.ic_error))
