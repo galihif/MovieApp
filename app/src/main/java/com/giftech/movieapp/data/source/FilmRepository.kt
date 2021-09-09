@@ -56,8 +56,16 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
                 val movieRes = FilmEntity()
                 movieRes.id = results.id
                 movieRes.title = results.title
-                movieRes.genre = results.genres.toString()
+
+                val genre = StringBuilder()
+                for (gen in results.genres!!){
+                    val genName = gen?.name
+                    genre.append("$genName ")
+                }
+                movieRes.genre = genre.toString()
+
                 movieRes.sinopsis = results.overview
+
                 val posterUrl = "https://image.tmdb.org/t/p/w500/${results.posterPath}"
                 movieRes.poster = posterUrl
 
@@ -102,10 +110,19 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
                 val tvRes = FilmEntity()
                 tvRes.id = results.id
                 tvRes.title = results.name
-                tvRes.genre = results.genres.toString()
+
+                val genre = StringBuilder()
+                for (gen in results.genres!!){
+                    val genName = gen?.name
+                    genre.append("$genName ")
+                }
+                tvRes.genre = genre.toString()
+
                 tvRes.sinopsis = results.overview
+
                 val posterUrl = "https://image.tmdb.org/t/p/w500/${results.posterPath}"
                 tvRes.poster = posterUrl
+
                 tv.postValue(tvRes)
             }
         })
