@@ -3,6 +3,7 @@ package com.giftech.movieapp.data.source.remote
 import android.util.Log
 import com.giftech.movieapp.data.source.remote.api.ApiConfig
 import com.giftech.movieapp.data.source.remote.response.DetailMovieResponse
+import com.giftech.movieapp.data.source.remote.response.DetailTvResponse
 import com.giftech.movieapp.data.source.remote.response.TvResponse
 import com.giftech.movieapp.data.source.remote.response.TvResultsItem
 import retrofit2.Call
@@ -75,6 +76,26 @@ class RemoteDataSource {
         })
     }
 
+    fun getTvById(id:Int,callback:LoadTvByIdCallback){
+        val client = ApiConfig.getApiService().getTvById(id)
+        client.enqueue(object :retrofit2.Callback<DetailTvResponse>{
+            override fun onResponse(
+                call: Call<DetailTvResponse>,
+                response: Response<DetailTvResponse>
+            ) {
+                if(response.isSuccessful){
+                    val res = response.body()
+                    callback.onResultsResponseReceived(res!!)
+                }
+            }
+
+            override fun onFailure(call: Call<DetailTvResponse>, t: Throwable) {
+                Log.e("TAG", "onFailure: ${t.message.toString()}")
+            }
+
+        })
+    }
+
 
     interface LoadMoviesCallback {
         fun onResultsResponseReceived(results: List<MovieResultsItem>)
@@ -88,4 +109,7 @@ class RemoteDataSource {
         fun onResultsResponseReceived(results: List<TvResultsItem>)
     }
 
+    interface LoadTvByIdCallback {
+        fun onResultsResponseReceived(results: DetailTvResponse)
+    }
 }
