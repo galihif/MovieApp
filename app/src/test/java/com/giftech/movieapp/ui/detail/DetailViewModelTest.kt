@@ -1,18 +1,28 @@
 package com.giftech.movieapp.ui.detail
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.giftech.movieapp.data.FilmEntity
+import com.giftech.movieapp.data.source.FilmRepository
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mock
 
 class DetailViewModelTest {
 
     private lateinit var viewModel: DetailViewModel
 
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    @Mock
+    private lateinit var filmRepository: FilmRepository
+
     @Before
     fun setUp() {
-        viewModel = DetailViewModel()
+        viewModel = DetailViewModel(filmRepository)
     }
 
     @Test
