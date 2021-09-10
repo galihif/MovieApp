@@ -66,8 +66,8 @@ class DetailViewModelTest {
         val tv = MutableLiveData<FilmEntity>()
         tv.value = dummyTv
 
-        `when`(filmRepository.getMoviesById(tvId!!)).thenReturn(tv)
-        val tvEntity = viewModel.getMovieById(tvId).value as FilmEntity
+        `when`(filmRepository.getTvById(tvId!!)).thenReturn(tv)
+        val tvEntity = viewModel.getTvById(tvId).value as FilmEntity
 
         assertNotNull(tvEntity)
         assertEquals(dummyTv.id, tvEntity.id)
@@ -76,7 +76,7 @@ class DetailViewModelTest {
         assertEquals(dummyTv.sinopsis, tvEntity.sinopsis)
         assertEquals(dummyTv.poster, tvEntity.poster)
 
-        viewModel.getMovieById(tvId).observeForever(filmObserver)
+        viewModel.getTvById(tvId).observeForever(filmObserver)
         verify(filmObserver).onChanged(dummyTv)
     }
 }

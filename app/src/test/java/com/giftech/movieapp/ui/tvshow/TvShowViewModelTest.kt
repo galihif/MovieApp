@@ -49,5 +49,8 @@ class TvShowViewModelTest {
 
         assertNotNull(tvsEntities)
         assertEquals(10, tvsEntities?.size)
+
+        viewModel.getTvShow().observeForever(observer)
+        verify(observer).onChanged(dummyTvs)
     }
 }
