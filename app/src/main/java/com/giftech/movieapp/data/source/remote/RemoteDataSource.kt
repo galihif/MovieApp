@@ -6,6 +6,7 @@ import com.giftech.movieapp.data.source.remote.response.DetailMovieResponse
 import com.giftech.movieapp.data.source.remote.response.DetailTvResponse
 import com.giftech.movieapp.data.source.remote.response.TvResponse
 import com.giftech.movieapp.data.source.remote.response.TvResultsItem
+import com.giftech.movieapp.utils.EspressoIdlingResource
 import retrofit2.Call
 import retrofit2.Response
 
@@ -22,6 +23,7 @@ class RemoteDataSource {
     }
 
     fun getAllMovies(callback:LoadMoviesCallback){
+        EspressoIdlingResource.increment()
         val client = ApiConfig.getApiService().getMovies()
         client.enqueue(object : retrofit2.Callback<MovieResponse>{
 
@@ -29,6 +31,7 @@ class RemoteDataSource {
                 if(response.isSuccessful){
                     val listResultsItem = response.body()?.results
                     callback.onResultsResponseReceived(listResultsItem as List<MovieResultsItem>)
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -40,6 +43,7 @@ class RemoteDataSource {
     }
 
     fun getMovieById(id:Int, callback:LoadMoviesByIdCallback){
+        EspressoIdlingResource.increment()
         val client = ApiConfig.getApiService().getMoviesById(id)
         client.enqueue(object : retrofit2.Callback<DetailMovieResponse>{
             override fun onResponse(
@@ -49,6 +53,7 @@ class RemoteDataSource {
                 if(response.isSuccessful){
                     val res = response.body()
                     callback.onResultsResponseReceived(res!!)
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -60,12 +65,14 @@ class RemoteDataSource {
     }
 
     fun getAllTvs(callback:LoadTvsCallback){
+        EspressoIdlingResource.increment()
         val client = ApiConfig.getApiService().getTvs()
         client.enqueue(object : retrofit2.Callback<TvResponse>{
             override fun onResponse(call: Call<TvResponse>, response: Response<TvResponse>) {
                 if(response.isSuccessful){
                     val tvRes = response.body()?.results
                     callback.onResultsResponseReceived(tvRes as List<TvResultsItem>)
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -77,6 +84,7 @@ class RemoteDataSource {
     }
 
     fun getTvById(id:Int,callback:LoadTvByIdCallback){
+        EspressoIdlingResource.increment()
         val client = ApiConfig.getApiService().getTvById(id)
         client.enqueue(object :retrofit2.Callback<DetailTvResponse>{
             override fun onResponse(
@@ -86,6 +94,7 @@ class RemoteDataSource {
                 if(response.isSuccessful){
                     val res = response.body()
                     callback.onResultsResponseReceived(res!!)
+                    EspressoIdlingResource.decrement()
                 }
             }
 
