@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.giftech.movieapp.R
-import com.giftech.movieapp.data.FilmEntity
+import com.giftech.movieapp.data.source.local.entity.FilmEntity
 import com.giftech.movieapp.databinding.ActivityDetailBinding
 import com.giftech.movieapp.viewmodel.ViewModelFactory
 

@@ -1,6 +1,6 @@
 package com.giftech.movieapp.utils
 
-import com.giftech.movieapp.data.FilmEntity
+import com.giftech.movieapp.data.source.local.entity.FilmEntity
 import com.giftech.movieapp.data.source.remote.MovieResultsItem
 import com.giftech.movieapp.data.source.remote.response.DetailMovieResponse
 import com.giftech.movieapp.data.source.remote.response.GenresItem

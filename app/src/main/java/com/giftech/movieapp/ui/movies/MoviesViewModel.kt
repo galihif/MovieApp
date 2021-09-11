@@ -2,7 +2,7 @@ package com.giftech.movieapp.ui.movies
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.giftech.movieapp.data.FilmEntity
+import com.giftech.movieapp.data.source.local.entity.FilmEntity
 import com.giftech.movieapp.data.source.FilmRepository
 
 

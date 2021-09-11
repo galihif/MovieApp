@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.giftech.movieapp.R
-import com.giftech.movieapp.data.FilmEntity
+import com.giftech.movieapp.data.source.local.entity.FilmEntity
 import com.giftech.movieapp.databinding.ItemFilmBinding
 import com.giftech.movieapp.ui.detail.DetailActivity
 
@@ -38,7 +38,7 @@ class TvShowAdapter: RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
 
     class TvShowViewHolder(private val binding: ItemFilmBinding) :RecyclerView.ViewHolder(binding.root){
 
-        fun bind(tvShow:FilmEntity){
+        fun bind(tvShow: FilmEntity){
             with(binding){
                 tvItemTitle.text = tvShow.title
 //                tvItemGenre.text = tvShow.genre

@@ -1,7 +1,7 @@
 package com.giftech.movieapp.data.source
 
 import androidx.lifecycle.LiveData
-import com.giftech.movieapp.data.FilmEntity
+import com.giftech.movieapp.data.source.local.entity.FilmEntity
 
 interface FilmDataSource {
     fun getAllMovies():LiveData<ArrayList<FilmEntity>>

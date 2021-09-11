@@ -2,7 +2,7 @@ package com.giftech.movieapp.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.giftech.movieapp.data.FilmEntity
+import com.giftech.movieapp.data.source.local.entity.FilmEntity
 import com.giftech.movieapp.data.source.remote.MovieResultsItem
 import com.giftech.movieapp.data.source.remote.RemoteDataSource
 import com.giftech.movieapp.data.source.remote.response.DetailMovieResponse

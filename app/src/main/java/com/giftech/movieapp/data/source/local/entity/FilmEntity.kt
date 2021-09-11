@@ -1,4 +1,4 @@
-package com.giftech.movieapp.data
+package com.giftech.movieapp.data.source.local.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

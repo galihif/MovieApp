@@ -10,7 +10,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.giftech.movieapp.R
-import com.giftech.movieapp.data.FilmEntity
+import com.giftech.movieapp.data.source.local.entity.FilmEntity
 import com.giftech.movieapp.utils.EspressoIdlingResource
 import com.giftech.movieapp.utils.MovieDummy
 import com.giftech.movieapp.utils.TvShowDummy
