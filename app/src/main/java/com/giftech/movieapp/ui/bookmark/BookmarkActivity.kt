@@ -15,5 +15,9 @@ class BookmarkActivity : AppCompatActivity() {
 
         supportActionBar?.elevation = 0f
         supportActionBar?.title = "Bookmark"
+
+        val sectionsPagerAdapter = BookmarkSectionsPagerAdapter(this, supportFragmentManager)
+        bookmarkBinding.viewPager.adapter = sectionsPagerAdapter
+        bookmarkBinding.tabs.setupWithViewPager(bookmarkBinding.viewPager)
     }
 }
