@@ -9,5 +9,6 @@ data class FilmEntity (
     var title:String?="",
     var genre:String?="",
     var sinopsis:String?="",
-    var poster:String?=""
+    var poster:String?="",
+    var isBookmarked:Boolean=false
     ): Parcelable
