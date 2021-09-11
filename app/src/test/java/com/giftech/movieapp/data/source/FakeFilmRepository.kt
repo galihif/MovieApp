@@ -2,6 +2,7 @@ package com.giftech.movieapp.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.giftech.movieapp.data.FilmDataSource
 import com.giftech.movieapp.data.source.local.entity.FilmEntity
 import com.giftech.movieapp.data.source.remote.MovieResultsItem
 import com.giftech.movieapp.data.source.remote.RemoteDataSource
@@ -10,7 +11,7 @@ import com.giftech.movieapp.data.source.remote.response.DetailTvResponse
 import com.giftech.movieapp.data.source.remote.response.TvResultsItem
 
 class FakeFilmRepository(private val remoteDataSource: RemoteDataSource)
-    :FilmDataSource{
+    : FilmDataSource {
 
     override fun getAllMovies(): LiveData<ArrayList<FilmEntity>> {
         val movieResults = MutableLiveData<ArrayList<FilmEntity>>()

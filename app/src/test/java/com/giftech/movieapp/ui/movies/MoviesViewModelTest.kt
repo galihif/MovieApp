@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.giftech.movieapp.data.source.local.entity.FilmEntity
-import com.giftech.movieapp.data.source.FilmRepository
+import com.giftech.movieapp.data.FilmRepository
 import com.giftech.movieapp.utils.MovieDummy
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert.assertEquals
@@ -26,7 +26,7 @@ class MoviesViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var filmRepository:FilmRepository
+    private lateinit var filmRepository: FilmRepository
 
     @Mock
     private lateinit var observer: Observer<List<FilmEntity>>

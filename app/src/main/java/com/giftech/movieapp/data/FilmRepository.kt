@@ -1,4 +1,4 @@
-package com.giftech.movieapp.data.source
+package com.giftech.movieapp.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,7 @@ import com.giftech.movieapp.data.source.remote.response.DetailTvResponse
 import com.giftech.movieapp.data.source.remote.response.TvResultsItem
 
 class FilmRepository private constructor(private val remoteDataSource: RemoteDataSource)
-    :FilmDataSource{
+    : FilmDataSource {
 
     companion object {
         @Volatile

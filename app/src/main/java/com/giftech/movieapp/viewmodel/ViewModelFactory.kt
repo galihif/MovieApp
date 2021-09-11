@@ -2,7 +2,7 @@ package com.giftech.movieapp.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.giftech.movieapp.data.source.FilmRepository
+import com.giftech.movieapp.data.FilmRepository
 import com.giftech.movieapp.di.Injection
 import com.giftech.movieapp.ui.detail.DetailViewModel
 import com.giftech.movieapp.ui.movies.MoviesViewModel

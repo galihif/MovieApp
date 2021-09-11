@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.giftech.movieapp.data.source.local.entity.FilmEntity
-import com.giftech.movieapp.data.source.FilmRepository
+import com.giftech.movieapp.data.FilmRepository
 import com.giftech.movieapp.utils.TvShowDummy
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert.assertEquals

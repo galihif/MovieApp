@@ -1,4 +1,4 @@
-package com.giftech.movieapp.data.source
+package com.giftech.movieapp.data
 
 import androidx.lifecycle.LiveData
 import com.giftech.movieapp.data.source.local.entity.FilmEntity
