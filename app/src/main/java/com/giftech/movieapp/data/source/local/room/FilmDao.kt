@@ -7,28 +7,31 @@ import com.giftech.movieapp.data.source.local.entity.FilmEntity
 @Dao
 interface FilmDao {
 
-    @Query("SELECT * FROM filmentities WHERE type = 0")
+    @Query("SELECT * FROM filmentities WHERE isMovie = 1")
     fun getAllMovies():LiveData<List<FilmEntity>>
 
-    @Query("SELECT * FROM filmentities WHERE type = 1")
+    @Query("SELECT * FROM filmentities WHERE isMovie = 0")
     fun getAllTvs():LiveData<List<FilmEntity>>
 
-    @Query("SELECT * FROM filmentities WHERE type = 1 AND bookmarked = 1")
+    @Query("SELECT * FROM filmentities WHERE isMovie = 1 AND bookmarked = 1")
     fun getBookmarkedMovies():LiveData<List<FilmEntity>>
 
-    @Query("SELECT * FROM filmentities WHERE type = 0 AND bookmarked = 1")
+    @Query("SELECT * FROM filmentities WHERE isMovie = 0 AND bookmarked = 1")
     fun getBookmarkedTvs():LiveData<List<FilmEntity>>
 
     @Transaction
-    @Query("SELECT * FROM filmentities WHERE type = 0 AND id = :id")
-    fun getMovieById(id:String):LiveData<FilmEntity>
+    @Query("SELECT * FROM filmentities WHERE isMovie = 1 AND id = :id")
+    fun getMovieById(id:Int):LiveData<FilmEntity>
 
     @Transaction
-    @Query("SELECT * FROM filmentities WHERE type = 1 AND id = :id")
-    fun getTvById(id:String):LiveData<FilmEntity>
+    @Query("SELECT * FROM filmentities WHERE isMovie = 0 AND id = :id")
+    fun getTvById(id:Int):LiveData<FilmEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFilms(listFilms:List<FilmEntity>)
+    fun insertListFilms(listFilms:List<FilmEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertFilm(film:FilmEntity)
 
     @Update
     fun updateFilm(film:FilmEntity)

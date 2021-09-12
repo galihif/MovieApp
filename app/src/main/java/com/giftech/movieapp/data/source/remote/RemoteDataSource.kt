@@ -1,6 +1,8 @@
 package com.giftech.movieapp.data.source.remote
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.giftech.movieapp.data.source.remote.api.ApiConfig
 import com.giftech.movieapp.data.source.remote.response.DetailMovieResponse
 import com.giftech.movieapp.data.source.remote.response.DetailTvResponse
@@ -22,15 +24,16 @@ class RemoteDataSource {
             }
     }
 
-    fun getAllMovies(callback:LoadMoviesCallback){
+    fun getAllMovies():LiveData<ApiResponse<List<MovieResultsItem>>>{
         EspressoIdlingResource.increment()
+        val listMovieRes = MutableLiveData<ApiResponse<List<MovieResultsItem>>>()
         val client = ApiConfig.getApiService().getMovies()
         client.enqueue(object : retrofit2.Callback<MovieResponse>{
 
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if(response.isSuccessful){
                     val listResultsItem = response.body()?.results
-                    callback.onResultsResponseReceived(listResultsItem as List<MovieResultsItem>)
+                    listMovieRes.value = ApiResponse.success(listResultsItem as List<MovieResultsItem>)
                     EspressoIdlingResource.decrement()
                 }
             }
@@ -40,10 +43,12 @@ class RemoteDataSource {
             }
 
         })
+        return listMovieRes
     }
 
-    fun getMovieById(id:Int, callback:LoadMoviesByIdCallback){
+    fun getMovieById(id:Int):LiveData<ApiResponse<DetailMovieResponse>>{
         EspressoIdlingResource.increment()
+        val movieRes = MutableLiveData<ApiResponse<DetailMovieResponse>>()
         val client = ApiConfig.getApiService().getMoviesById(id)
         client.enqueue(object : retrofit2.Callback<DetailMovieResponse>{
             override fun onResponse(
@@ -52,7 +57,7 @@ class RemoteDataSource {
             ) {
                 if(response.isSuccessful){
                     val res = response.body()
-                    callback.onResultsResponseReceived(res!!)
+                    movieRes.value = ApiResponse.success(res as DetailMovieResponse)
                     EspressoIdlingResource.decrement()
                 }
             }
@@ -62,16 +67,18 @@ class RemoteDataSource {
             }
 
         })
+        return movieRes
     }
 
-    fun getAllTvs(callback:LoadTvsCallback){
+    fun getAllTvs():LiveData<ApiResponse<List<TvResultsItem>>>{
         EspressoIdlingResource.increment()
+        val listTvRes = MutableLiveData<ApiResponse<List<TvResultsItem>>>()
         val client = ApiConfig.getApiService().getTvs()
         client.enqueue(object : retrofit2.Callback<TvResponse>{
             override fun onResponse(call: Call<TvResponse>, response: Response<TvResponse>) {
                 if(response.isSuccessful){
                     val tvRes = response.body()?.results
-                    callback.onResultsResponseReceived(tvRes as List<TvResultsItem>)
+                    listTvRes.value = ApiResponse.success(tvRes as List<TvResultsItem>)
                     EspressoIdlingResource.decrement()
                 }
             }
@@ -81,10 +88,12 @@ class RemoteDataSource {
             }
 
         })
+        return listTvRes
     }
 
-    fun getTvById(id:Int,callback:LoadTvByIdCallback){
+    fun getTvById(id:Int):LiveData<ApiResponse<DetailTvResponse>>{
         EspressoIdlingResource.increment()
+        val tvRes = MutableLiveData<ApiResponse<DetailTvResponse>>()
         val client = ApiConfig.getApiService().getTvById(id)
         client.enqueue(object :retrofit2.Callback<DetailTvResponse>{
             override fun onResponse(
@@ -93,7 +102,7 @@ class RemoteDataSource {
             ) {
                 if(response.isSuccessful){
                     val res = response.body()
-                    callback.onResultsResponseReceived(res!!)
+                    tvRes.value = ApiResponse.success(res as DetailTvResponse)
                     EspressoIdlingResource.decrement()
                 }
             }
@@ -101,8 +110,8 @@ class RemoteDataSource {
             override fun onFailure(call: Call<DetailTvResponse>, t: Throwable) {
                 Log.e("TAG", "onFailure: ${t.message.toString()}")
             }
-
         })
+        return tvRes
     }
 
 

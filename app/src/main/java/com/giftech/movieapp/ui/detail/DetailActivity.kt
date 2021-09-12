@@ -9,6 +9,7 @@ import com.giftech.movieapp.R
 import com.giftech.movieapp.data.source.local.entity.FilmEntity
 import com.giftech.movieapp.databinding.ActivityDetailBinding
 import com.giftech.movieapp.viewmodel.ViewModelFactory
+import com.giftech.movieapp.vo.Status
 
 class DetailActivity : AppCompatActivity() {
 
@@ -24,7 +25,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val factory = ViewModelFactory.getInstance()
+        val factory = ViewModelFactory.getInstance(this)
         val viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         val extras = intent.extras
@@ -34,11 +35,23 @@ class DetailActivity : AppCompatActivity() {
 
             if(isMovie){
                 viewModel.getMovieById(filmId).observe(this, {movieRes ->
-                    populateView(movieRes)
+                    if(movieRes!=null){
+                        when(movieRes.status){
+                            Status.SUCCESS -> {
+                                populateView(movieRes.data)
+                            }
+                        }
+                    }
                 })
             }else{
                 viewModel.getTvById(filmId).observe(this, {tvRes ->
-                    populateView(tvRes)
+                    if(tvRes!=null){
+                        when(tvRes.status){
+                            Status.SUCCESS -> {
+                                populateView(tvRes.data)
+                            }
+                        }
+                    }
                 })
             }
         }

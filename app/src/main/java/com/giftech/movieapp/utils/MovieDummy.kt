@@ -20,8 +20,8 @@ object MovieDummy {
                         "Once he manages to escape, he decides to use his suit to fight " +
                         "against evil forces to save the world.",
                 "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMoliPRgy5xgoyg_eZmuKyptS9s1weVooX5tLqTBnGBYMRtE-t",
-                0,
-                0
+                false,
+                true
             )
         )
 

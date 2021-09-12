@@ -16,8 +16,8 @@ object TvShowDummy {
                 "Superhero, Action",
                 "Living idealized suburban lives, super-powered beings Wanda and Vision begin to suspect that everything is not as it seems.",
                 "https://m.media-amazon.com/images/M/MV5BZGEwYmMwZmMtMTQ3MS00YWNhLWEwMmQtZTU5YTIwZmJjZGQ0XkEyXkFqcGdeQXVyMTI5MzA5MjA1._V1_.jpg",
-                0,
-                1
+                false,
+                false
             )
         )
 

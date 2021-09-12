@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.giftech.movieapp.databinding.FragmentMoviesBinding
 import com.giftech.movieapp.viewmodel.ViewModelFactory
+import com.giftech.movieapp.vo.Status
 
 class MoviesFragment : Fragment() {
 
@@ -28,15 +29,21 @@ class MoviesFragment : Fragment() {
 
         if(activity!=null){
 
-            val factory = ViewModelFactory.getInstance()
+            val factory = ViewModelFactory.getInstance(requireContext())
             val viewModel = ViewModelProvider(this, factory)[MoviesViewModel::class.java]
 
             val moviesAdapter = MoviesAdapter()
 //            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MoviesViewModel::class.java]
             viewModel.getMovies().observe(viewLifecycleOwner, {movieRes ->
-                moviesAdapter.setListMovie(movieRes)
-                for (movie in movieRes){
-                    Log.d("okhttp", movie.id.toString())
+                if(movieRes!=null){
+                    when(movieRes.status){
+                        Status.SUCCESS -> {
+                            moviesAdapter.setListMovie(movieRes.data!!)
+                            for (movie in movieRes.data){
+                                Log.d("okhttp", movie.id.toString())
+                            }
+                        }
+                    }
                 }
             })
 

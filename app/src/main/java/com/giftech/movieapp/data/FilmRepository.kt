@@ -1,134 +1,184 @@
 package com.giftech.movieapp.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.giftech.movieapp.data.source.local.LocalDataSource
 import com.giftech.movieapp.data.source.local.entity.FilmEntity
+import com.giftech.movieapp.data.source.remote.ApiResponse
 import com.giftech.movieapp.data.source.remote.MovieResultsItem
 import com.giftech.movieapp.data.source.remote.RemoteDataSource
 import com.giftech.movieapp.data.source.remote.response.DetailMovieResponse
 import com.giftech.movieapp.data.source.remote.response.DetailTvResponse
 import com.giftech.movieapp.data.source.remote.response.TvResultsItem
+import com.giftech.movieapp.utils.AppExecutors
+import com.giftech.movieapp.vo.Resource
 
-class FilmRepository private constructor(private val remoteDataSource: RemoteDataSource)
+class FilmRepository private constructor(
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource,
+    private val appExecutors: AppExecutors
+)
     : FilmDataSource {
 
     companion object {
         @Volatile
         private var instance: FilmRepository? = null
-        fun getInstance(remoteData: RemoteDataSource): FilmRepository =
+        fun getInstance(remoteData: RemoteDataSource,localDataSource: LocalDataSource,appExecutors: AppExecutors): FilmRepository =
             instance ?: synchronized(this) {
-                instance ?: FilmRepository(remoteData).apply { instance = this }
+                instance ?: FilmRepository(remoteData,localDataSource,appExecutors).apply { instance = this }
             }
     }
 
 
-    override fun getAllMovies(): LiveData<ArrayList<FilmEntity>> {
-        val movieResults = MutableLiveData<ArrayList<FilmEntity>>()
+    override fun getAllMovies(): LiveData<Resource<List<FilmEntity>>> {
 
-        remoteDataSource.getAllMovies(object : RemoteDataSource.LoadMoviesCallback{
-            override fun onResultsResponseReceived(results: List<MovieResultsItem>) {
-                val movieList = ArrayList<FilmEntity>()
-
-                for(movieRes in results){
-                    val movie = FilmEntity(
-                        id=movieRes.id,
-                        title = movieRes.title,
-                        genre = movieRes.genreIds.toString(),
-                        sinopsis = movieRes.overview,
-                        poster = "https://image.tmdb.org/t/p/w500/${movieRes.posterPath}",
-                        bookmarked = 0,
-                        type = 1
-                    )
-                    movieList.add(movie)
-                }
-
-                movieResults.postValue(movieList)
+        return object:NetworkBoundResource<List<FilmEntity>, List<MovieResultsItem>>(appExecutors){
+            override fun loadFromDB(): LiveData<List<FilmEntity>> {
+                return localDataSource.getAllMovies()
             }
-        })
 
-        return movieResults
+            override fun shouldFetch(data: List<FilmEntity>?): Boolean {
+                return data == null || data.isEmpty()
+            }
+
+            public override fun createCall(): LiveData<ApiResponse<List<MovieResultsItem>>> {
+                return remoteDataSource.getAllMovies()
+            }
+
+             override fun saveCallResult(data: List<MovieResultsItem>) {
+                 val listMovies = ArrayList<FilmEntity>()
+                 for (res in data){
+                     val movie = FilmEntity(
+                         res.id,
+                         res.title,
+                         res.genreIds.toString(),
+                         res.overview,
+                         "https://image.tmdb.org/t/p/w500/${res.posterPath}",
+                         false,
+                         true
+                     )
+                     listMovies.add(movie)
+                 }
+                 localDataSource.insertListFilms(listMovies)
+            }
+
+        }.asLiveData()
     }
 
-    override fun getMoviesById(id: Int): LiveData<FilmEntity> {
-        val movie = MutableLiveData<FilmEntity>()
+    override fun getMoviesById(id: Int): LiveData<Resource<FilmEntity>> {
 
-        remoteDataSource.getMovieById(id, object : RemoteDataSource.LoadMoviesByIdCallback{
-            override fun onResultsResponseReceived(results: DetailMovieResponse) {
+        return object : NetworkBoundResource<FilmEntity,DetailMovieResponse>(appExecutors){
+            override fun loadFromDB(): LiveData<FilmEntity> {
+                return localDataSource.getMovieById(id)
+            }
 
+            override fun shouldFetch(data: FilmEntity?): Boolean {
+                return data == null
+            }
+
+            override fun createCall(): LiveData<ApiResponse<DetailMovieResponse>> {
+                return remoteDataSource.getMovieById(id)
+            }
+
+            override fun saveCallResult(data: DetailMovieResponse) {
                 val genre = StringBuilder()
-                for (gen in results.genres!!){
+                for (gen in data.genres!!){
                     val genName = gen?.name
                     genre.append("$genName ")
                 }
-
-                val movieRes = FilmEntity(
-                    id=results.id,
-                    title = results.title,
-                    genre = genre.toString(),
-                    sinopsis = results.overview,
-                    poster = "https://image.tmdb.org/t/p/w500/${results.posterPath}",
-                    bookmarked = 0,
-                    type = 1
+                val movie = FilmEntity(
+                    data.id,
+                    data.title,
+                    genre.toString(),
+                    data.overview,
+                    "https://image.tmdb.org/t/p/w500/${data.posterPath}",
+                    false,
+                    true
                 )
-
-                movie.postValue(movieRes)
+                localDataSource.insertFilm(movie)
             }
-        })
 
-        return movie
+        }.asLiveData()
     }
 
-    override fun getAllTvs(): LiveData<ArrayList<FilmEntity>> {
-        val listTv = MutableLiveData<ArrayList<FilmEntity>>()
+    override fun getAllTvs(): LiveData<Resource<List<FilmEntity>>> {
+        return object : NetworkBoundResource<List<FilmEntity>, List<TvResultsItem>>(appExecutors){
+            override fun loadFromDB(): LiveData<List<FilmEntity>> {
+                return localDataSource.getAllTvs()
+            }
 
-        remoteDataSource.getAllTvs(object : RemoteDataSource.LoadTvsCallback{
-            override fun onResultsResponseReceived(results: List<TvResultsItem>) {
-                val listTvRes = ArrayList<FilmEntity>()
+            override fun shouldFetch(data: List<FilmEntity>?): Boolean {
+                return data==null || data.isEmpty()
+            }
 
-                for (res in results){
-                    val tvRes = FilmEntity(
-                        id = res.id,
-                        title = res.name,
-                        genre = res.genreIds.toString(),
-                        sinopsis = res.overview,
-                        poster = "https://image.tmdb.org/t/p/w500/${res.posterPath}",
-                        bookmarked = 0,
-                        type = 1
+            override fun createCall(): LiveData<ApiResponse<List<TvResultsItem>>> {
+                return remoteDataSource.getAllTvs()
+            }
+
+            override fun saveCallResult(data: List<TvResultsItem>) {
+                val listTv = ArrayList<FilmEntity>()
+                for (res in data){
+                    listTv.add(
+                        FilmEntity(
+                        res.id,
+                        res.name,
+                        res.genreIds.toString(),
+                            res.overview,
+                            "https://image.tmdb.org/t/p/w500/${res.posterPath}",
+                            false,
+                            false
+                        )
                     )
-                    listTvRes.add(tvRes)
                 }
-
-                listTv.postValue(listTvRes)
+                localDataSource.insertListFilms(listTv)
             }
 
-        })
-
-        return listTv
+        }.asLiveData()
     }
 
-    override fun getTvById(id: Int): LiveData<FilmEntity> {
-        val tv = MutableLiveData<FilmEntity>()
+    override fun getTvById(id: Int): LiveData<Resource<FilmEntity>> {
+        return object : NetworkBoundResource<FilmEntity,DetailTvResponse>(appExecutors){
+            override fun loadFromDB(): LiveData<FilmEntity> {
+                return localDataSource.getTvById(id)
+            }
 
-        remoteDataSource.getTvById(id, object : RemoteDataSource.LoadTvByIdCallback{
-            override fun onResultsResponseReceived(results: DetailTvResponse) {
+            override fun shouldFetch(data: FilmEntity?): Boolean {
+                return data == null
+            }
+
+            override fun createCall(): LiveData<ApiResponse<DetailTvResponse>> {
+                return remoteDataSource.getTvById(id)
+            }
+
+            override fun saveCallResult(data: DetailTvResponse) {
                 val genre = StringBuilder()
-                for (gen in results.genres!!){
+                for (gen in data.genres!!){
                     val genName = gen?.name
                     genre.append("$genName ")
                 }
-                val tvRes = FilmEntity(
-                    id = results.id,
-                    title = results.name,
-                    genre = genre.toString(),
-                    sinopsis = results.overview,
-                    poster = "https://image.tmdb.org/t/p/w500/${results.posterPath}",
-                    bookmarked = 0,
-                    type = 1
+                val tv = FilmEntity(
+                    data.id,
+                    data.name,
+                    genre.toString(),
+                    data.overview,
+                    "https://image.tmdb.org/t/p/w500/${data.posterPath}",
+                    false,
+                    false
                 )
-                tv.postValue(tvRes)
+                localDataSource.insertFilm(tv)
             }
-        })
 
-        return tv
+        }.asLiveData()
+    }
+
+    override fun getBookmarkedMovies(): LiveData<List<FilmEntity>> {
+        return localDataSource.getBookmarkedMovies()
+    }
+
+    override fun getBookmarkedTvs(): LiveData<List<FilmEntity>> {
+        return localDataSource.getBookmarkedTvs()
+    }
+
+    override fun setBookmarkedFilm(filmEntity: FilmEntity, state:Boolean) {
+        localDataSource.setBookmarkFilm(filmEntity,state)
     }
 }

@@ -17,9 +17,14 @@ class LocalDataSource private constructor(private val mFilmDao: FilmDao){
     fun getAllTvs():LiveData<List<FilmEntity>> = mFilmDao.getAllTvs()
     fun getBookmarkedMovies():LiveData<List<FilmEntity>> = mFilmDao.getBookmarkedMovies()
     fun getBookmarkedTvs():LiveData<List<FilmEntity>> = mFilmDao.getBookmarkedTvs()
-    fun getMovieById(id:String):LiveData<FilmEntity> = mFilmDao.getMovieById(id)
-    fun getTvById(id:String):LiveData<FilmEntity> = mFilmDao.getTvById(id)
-    fun insertFilms(listFilms:List<FilmEntity>) = mFilmDao.insertFilms(listFilms)
+    fun getMovieById(id:Int):LiveData<FilmEntity> = mFilmDao.getMovieById(id)
+    fun getTvById(id:Int):LiveData<FilmEntity> = mFilmDao.getTvById(id)
+    fun insertListFilms(listFilms:List<FilmEntity>) = mFilmDao.insertListFilms(listFilms)
+    fun insertFilm(film:FilmEntity) = mFilmDao.insertFilm(film)
     fun updateFilm(film:FilmEntity) = mFilmDao.updateFilm(film)
+    fun setBookmarkFilm(film:FilmEntity, state:Boolean){
+        film.bookmarked = state
+        mFilmDao.updateFilm(film)
+    }
 
 }

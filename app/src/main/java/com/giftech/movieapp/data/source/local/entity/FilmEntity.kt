@@ -29,9 +29,9 @@ data class FilmEntity (
     var poster:String?,
 
     @ColumnInfo(name = "bookmarked")
-    var bookmarked:Int?,
+    var bookmarked:Boolean?,
 
-    @ColumnInfo(name = "type")
-    var type:Int? //0 for movie 1 for tv
+    @ColumnInfo(name = "isMovie")
+    var isMovie:Boolean?
 
     ): Parcelable

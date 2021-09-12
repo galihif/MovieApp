@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.giftech.movieapp.databinding.FragmentTvShowBinding
 import com.giftech.movieapp.viewmodel.ViewModelFactory
+import com.giftech.movieapp.vo.Status
 
 class TvShowFragment : Fragment() {
 
@@ -28,11 +29,17 @@ class TvShowFragment : Fragment() {
         if(activity!=null){
             val tvShowAdapter = TvShowAdapter()
 
-            val factory = ViewModelFactory.getInstance()
+            val factory = ViewModelFactory.getInstance(requireContext())
             val viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
 
             viewModel.getTvShow().observe(viewLifecycleOwner, {listTvRes ->
-                tvShowAdapter.setListTvShow(listTvRes)
+                if(listTvRes != null){
+                    when(listTvRes.status){
+                        Status.SUCCESS -> {
+                            tvShowAdapter.setListTvShow(listTvRes.data!!)
+                        }
+                    }
+                }
             })
 
             with(binding.rvTvshow){
