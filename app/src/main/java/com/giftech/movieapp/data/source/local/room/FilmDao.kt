@@ -28,7 +28,7 @@ interface FilmDao {
     fun getTvById(id:String):LiveData<FilmEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFilms(films:List<FilmEntity>)
+    fun insertFilms(listFilms:List<FilmEntity>)
 
     @Update
     fun updateFilm(film:FilmEntity)
