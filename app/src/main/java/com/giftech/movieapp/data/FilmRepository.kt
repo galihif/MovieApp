@@ -30,14 +30,15 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
                 val movieList = ArrayList<FilmEntity>()
 
                 for(movieRes in results){
-                    val movie = FilmEntity()
-                    movie.id = movieRes.id
-                    movie.title = movieRes.title
-                    movie.genre = movieRes.genreIds.toString()
-                    movie.sinopsis = movieRes.overview
-                    val posterUrl = "https://image.tmdb.org/t/p/w500/${movieRes.posterPath}"
-                    movie.poster = posterUrl
-
+                    val movie = FilmEntity(
+                        id=movieRes.id,
+                        title = movieRes.title,
+                        genre = movieRes.genreIds.toString(),
+                        sinopsis = movieRes.overview,
+                        poster = "https://image.tmdb.org/t/p/w500/${movieRes.posterPath}",
+                        bookmarked = 0,
+                        type = 1
+                    )
                     movieList.add(movie)
                 }
 
@@ -53,21 +54,22 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
 
         remoteDataSource.getMovieById(id, object : RemoteDataSource.LoadMoviesByIdCallback{
             override fun onResultsResponseReceived(results: DetailMovieResponse) {
-                val movieRes = FilmEntity()
-                movieRes.id = results.id
-                movieRes.title = results.title
 
                 val genre = StringBuilder()
                 for (gen in results.genres!!){
                     val genName = gen?.name
                     genre.append("$genName ")
                 }
-                movieRes.genre = genre.toString()
 
-                movieRes.sinopsis = results.overview
-
-                val posterUrl = "https://image.tmdb.org/t/p/w500/${results.posterPath}"
-                movieRes.poster = posterUrl
+                val movieRes = FilmEntity(
+                    id=results.id,
+                    title = results.title,
+                    genre = genre.toString(),
+                    sinopsis = results.overview,
+                    poster = "https://image.tmdb.org/t/p/w500/${results.posterPath}",
+                    bookmarked = 0,
+                    type = 1
+                )
 
                 movie.postValue(movieRes)
             }
@@ -84,13 +86,15 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
                 val listTvRes = ArrayList<FilmEntity>()
 
                 for (res in results){
-                    val tvRes = FilmEntity()
-                    tvRes.id = res.id
-                    tvRes.title = res.name
-                    tvRes.genre = res.genreIds.toString()
-                    tvRes.sinopsis = res.overview
-                    val posterUrl = "https://image.tmdb.org/t/p/w500/${res.posterPath}"
-                    tvRes.poster = posterUrl
+                    val tvRes = FilmEntity(
+                        id = res.id,
+                        title = res.name,
+                        genre = res.genreIds.toString(),
+                        sinopsis = res.overview,
+                        poster = "https://image.tmdb.org/t/p/w500/${res.posterPath}",
+                        bookmarked = 0,
+                        type = 1
+                    )
                     listTvRes.add(tvRes)
                 }
 
@@ -107,22 +111,20 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
 
         remoteDataSource.getTvById(id, object : RemoteDataSource.LoadTvByIdCallback{
             override fun onResultsResponseReceived(results: DetailTvResponse) {
-                val tvRes = FilmEntity()
-                tvRes.id = results.id
-                tvRes.title = results.name
-
                 val genre = StringBuilder()
                 for (gen in results.genres!!){
                     val genName = gen?.name
                     genre.append("$genName ")
                 }
-                tvRes.genre = genre.toString()
-
-                tvRes.sinopsis = results.overview
-
-                val posterUrl = "https://image.tmdb.org/t/p/w500/${results.posterPath}"
-                tvRes.poster = posterUrl
-
+                val tvRes = FilmEntity(
+                    id = results.id,
+                    title = results.name,
+                    genre = genre.toString(),
+                    sinopsis = results.overview,
+                    poster = "https://image.tmdb.org/t/p/w500/${results.posterPath}",
+                    bookmarked = 0,
+                    type = 1
+                )
                 tv.postValue(tvRes)
             }
         })
