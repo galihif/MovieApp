@@ -37,7 +37,8 @@ class MoviesFragment : Fragment() {
                 if(movieRes!=null){
                     when(movieRes.status){
                         Status.SUCCESS -> {
-                            moviesAdapter.setListMovie(movieRes.data!!)
+//                            moviesAdapter.setListMovie(movieRes.data!!)
+                            moviesAdapter.submitList(movieRes.data)
                         }
                     }
                 }
@@ -45,7 +46,6 @@ class MoviesFragment : Fragment() {
 
             with(binding.rvMovies){
                 layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
                 adapter = moviesAdapter
             }
         }

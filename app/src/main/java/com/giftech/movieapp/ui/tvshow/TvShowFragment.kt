@@ -1,6 +1,7 @@
 package com.giftech.movieapp.ui.tvshow
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,12 @@ class TvShowFragment : Fragment() {
                 if(listTvRes != null){
                     when(listTvRes.status){
                         Status.SUCCESS -> {
-                            tvShowAdapter.setListTvShow(listTvRes.data!!)
+//                            tvShowAdapter.setListTvShow(listTvRes.data!!)
+                            tvShowAdapter.submitList(listTvRes.data)
+                            val listData = listTvRes.data
+                            for (i in listData!!){
+                                Log.d("GALIH", i.title.toString())
+                            }
                         }
                     }
                 }
@@ -44,7 +50,6 @@ class TvShowFragment : Fragment() {
 
             with(binding.rvTvshow){
                 layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
                 adapter = tvShowAdapter
             }
         }

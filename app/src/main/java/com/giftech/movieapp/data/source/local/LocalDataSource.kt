@@ -1,6 +1,7 @@
 package com.giftech.movieapp.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.giftech.movieapp.data.source.local.entity.FilmEntity
 import com.giftech.movieapp.data.source.local.room.FilmDao
 
@@ -13,8 +14,8 @@ class LocalDataSource private constructor(private val mFilmDao: FilmDao){
             INSTANCE ?: LocalDataSource(mFilmDao)
     }
 
-    fun getAllMovies():LiveData<List<FilmEntity>> = mFilmDao.getAllMovies()
-    fun getAllTvs():LiveData<List<FilmEntity>> = mFilmDao.getAllTvs()
+    fun getAllMovies(): DataSource.Factory<Int, FilmEntity> = mFilmDao.getAllMovies()
+    fun getAllTvs(): DataSource.Factory<Int, FilmEntity> = mFilmDao.getAllTvs()
     fun getBookmarkedMovies():LiveData<List<FilmEntity>> = mFilmDao.getBookmarkedMovies()
     fun getBookmarkedTvs():LiveData<List<FilmEntity>> = mFilmDao.getBookmarkedTvs()
     fun getMovieById(id:Int):LiveData<FilmEntity> = mFilmDao.getMovieById(id)
