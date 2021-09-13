@@ -17,5 +17,5 @@ interface FilmDataSource {
 
     fun getBookmarkedTvs():LiveData<List<FilmEntity>>
 
-    fun setBookmarkedFilm(filmEntity: FilmEntity,state:Boolean)
+    fun setBookmarkedFilm(filmEntity: FilmEntity)
 }

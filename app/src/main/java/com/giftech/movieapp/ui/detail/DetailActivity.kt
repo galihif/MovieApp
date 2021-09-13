@@ -20,6 +20,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityDetailBinding
+    private lateinit var viewModel: DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val factory = ViewModelFactory.getInstance(this)
-        val viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         val extras = intent.extras
         if(extras != null){
@@ -71,25 +72,26 @@ class DetailActivity : AppCompatActivity() {
                         .error(R.drawable.ic_error))
                 .into(ivPoster)
 
-            setBookmarkBtn(film!!)
+            setBookmarkBtn(film?.bookmarked!!)
 
             btnBookmark.setOnClickListener {
                 film.bookmarked = !film.bookmarked!!
                 if(film.bookmarked!!){
-                    Toast.makeText(this@DetailActivity,"Film ${film.title} disimpan ke bookmark",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@DetailActivity,"Film ${film.title} disimpan ke bookmark",Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(this@DetailActivity,"Film ${film.title} dihapus dari bookmark",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@DetailActivity,"Film ${film.title} dihapus dari bookmark",Toast.LENGTH_SHORT).show()
                 }
-                setBookmarkBtn(film)
+                setBookmarkBtn(film.bookmarked!!)
+                viewModel.setBookmarkedFilm(film)
             }
         }
 
         supportActionBar?.title = film?.title
     }
 
-    private fun setBookmarkBtn(film:FilmEntity){
+    private fun setBookmarkBtn(state:Boolean){
         with(binding){
-            if(film.bookmarked!!){
+            if(state){
                 btnBookmark.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_bookmark,0,0,0)
                 btnBookmark.text = "Unbookmark this film"
             }else{

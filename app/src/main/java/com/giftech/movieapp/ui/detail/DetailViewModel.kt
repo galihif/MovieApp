@@ -17,4 +17,6 @@ class DetailViewModel(private val filmRepository: FilmRepository): ViewModel() {
     fun getMovieById(movieId:Int):LiveData<Resource<FilmEntity>> = filmRepository.getMoviesById(movieId)
 
     fun getTvById(movieId:Int):LiveData<Resource<FilmEntity>> = filmRepository.getTvById(movieId)
+
+    fun setBookmarkedFilm(film:FilmEntity) = filmRepository.setBookmarkedFilm(film)
 }

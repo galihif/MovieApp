@@ -22,9 +22,6 @@ class LocalDataSource private constructor(private val mFilmDao: FilmDao){
     fun insertListFilms(listFilms:List<FilmEntity>) = mFilmDao.insertListFilms(listFilms)
     fun insertFilm(film:FilmEntity) = mFilmDao.insertFilm(film)
     fun updateFilm(film:FilmEntity) = mFilmDao.updateFilm(film)
-    fun setBookmarkFilm(film:FilmEntity, state:Boolean){
-        film.bookmarked = state
-        mFilmDao.updateFilm(film)
-    }
+    fun setBookmarkFilm(film:FilmEntity) =  mFilmDao.updateFilm(film)
 
 }

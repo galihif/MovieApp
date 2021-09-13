@@ -178,7 +178,9 @@ class FilmRepository private constructor(
         return localDataSource.getBookmarkedTvs()
     }
 
-    override fun setBookmarkedFilm(filmEntity: FilmEntity, state:Boolean) {
-        localDataSource.setBookmarkFilm(filmEntity,state)
+    override fun setBookmarkedFilm(filmEntity: FilmEntity) {
+        appExecutors.diskIO().execute {
+            localDataSource.setBookmarkFilm(filmEntity)
+        }
     }
 }
