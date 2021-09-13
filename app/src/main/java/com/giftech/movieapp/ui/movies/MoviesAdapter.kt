@@ -28,11 +28,11 @@ class MoviesAdapter: PagedListAdapter<FilmEntity, MoviesAdapter.MovieViewHolder>
         }
     }
 
-    fun setListMovie(listMovie:List<FilmEntity>){
-        this.listMovie.clear()
-        this.listMovie.addAll(listMovie)
-        notifyDataSetChanged()
-    }
+//    fun setListMovie(listMovie:List<FilmEntity>){
+//        this.listMovie.clear()
+//        this.listMovie.addAll(listMovie)
+//        notifyDataSetChanged()
+//    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -49,7 +49,7 @@ class MoviesAdapter: PagedListAdapter<FilmEntity, MoviesAdapter.MovieViewHolder>
         }
     }
 
-    override fun getItemCount(): Int = listMovie.size
+//    override fun getItemCount(): Int = listMovie.size
 
     class MovieViewHolder(private val binding: ItemFilmBinding) :RecyclerView.ViewHolder(binding.root){
 

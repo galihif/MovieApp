@@ -28,12 +28,11 @@ class TvShowAdapter: PagedListAdapter<FilmEntity, TvShowAdapter.TvShowViewHolder
         }
     }
 
-
-    fun setListTvShow(listTvShow:List<FilmEntity>){
-        this.listTvShow.clear()
-        this.listTvShow.addAll(listTvShow)
-        notifyDataSetChanged()
-    }
+//    fun setListTvShow(listTvShow:List<FilmEntity>){
+//        this.listTvShow.clear()
+//        this.listTvShow.addAll(listTvShow)
+//        notifyDataSetChanged()
+//    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -50,7 +49,7 @@ class TvShowAdapter: PagedListAdapter<FilmEntity, TvShowAdapter.TvShowViewHolder
         }
     }
 
-    override fun getItemCount(): Int = listTvShow.size
+//    override fun getItemCount(): Int = listTvShow.size
 
     class TvShowViewHolder(private val binding: ItemFilmBinding) :RecyclerView.ViewHolder(binding.root){
 
