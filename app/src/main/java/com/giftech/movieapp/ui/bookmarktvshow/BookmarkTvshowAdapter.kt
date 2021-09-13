@@ -48,7 +48,7 @@ class BookmarkTvshowAdapter: RecyclerView.Adapter<BookmarkTvshowAdapter.Bookmark
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailActivity::class.java)
                     intent.putExtra(DetailActivity.EXTRA_FILM, tvShow.id)
-                    intent.putExtra(DetailActivity.IS_MOVIE, true)
+                    intent.putExtra(DetailActivity.IS_MOVIE, false)
                     itemView.context.startActivity(intent)
                 }
             }
