@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.giftech.movieapp.data.FilmRepository
 import com.giftech.movieapp.di.Injection
+import com.giftech.movieapp.ui.bookmarkmovies.BookmarkMoviesViewModel
 import com.giftech.movieapp.ui.detail.DetailViewModel
 import com.giftech.movieapp.ui.movies.MoviesViewModel
 import com.giftech.movieapp.ui.tvshow.TvShowViewModel
@@ -35,6 +36,9 @@ class ViewModelFactory private constructor(private val mFilmRepository: FilmRepo
             }
             modelClass.isAssignableFrom(TvShowViewModel::class.java)->{
                 return TvShowViewModel(mFilmRepository) as T
+            }
+            modelClass.isAssignableFrom(BookmarkMoviesViewModel::class.java)->{
+                return BookmarkMoviesViewModel(mFilmRepository) as T
             }
 
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)

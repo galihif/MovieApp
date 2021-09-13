@@ -1,7 +1,6 @@
 package com.giftech.movieapp.ui.movies
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,9 +38,6 @@ class MoviesFragment : Fragment() {
                     when(movieRes.status){
                         Status.SUCCESS -> {
                             moviesAdapter.setListMovie(movieRes.data!!)
-                            for (movie in movieRes.data){
-                                Log.d("okhttp", movie.id.toString())
-                            }
                         }
                     }
                 }
