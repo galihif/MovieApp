@@ -1,6 +1,7 @@
 package com.giftech.movieapp.ui.detail
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -60,7 +61,7 @@ class DetailActivity : AppCompatActivity() {
     private fun populateView(film: FilmEntity?) {
         with(binding){
             tvTitle.text = film?.title
-            tvGenre.text = film?.genre
+//            tvGenre.text = film?.genre
             tvSinopsis.text = film?.sinopsis
 
             Glide.with(this@DetailActivity)
@@ -69,8 +70,33 @@ class DetailActivity : AppCompatActivity() {
                     RequestOptions.placeholderOf(R.drawable.ic_loading)
                         .error(R.drawable.ic_error))
                 .into(ivPoster)
+
+            setBookmarkBtn(film!!)
+
+            btnBookmark.setOnClickListener {
+                film.bookmarked = !film.bookmarked!!
+                if(film.bookmarked!!){
+                    Toast.makeText(this@DetailActivity,"Film ${film.title} disimpan ke bookmark",Toast.LENGTH_LONG).show()
+                }else{
+                    Toast.makeText(this@DetailActivity,"Film ${film.title} dihapus dari bookmark",Toast.LENGTH_LONG).show()
+                }
+                setBookmarkBtn(film)
+            }
         }
 
         supportActionBar?.title = film?.title
+    }
+
+    private fun setBookmarkBtn(film:FilmEntity){
+        with(binding){
+            if(film.bookmarked!!){
+                btnBookmark.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_bookmark,0,0,0)
+                btnBookmark.text = "Unbookmark this film"
+            }else{
+                btnBookmark.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_bookmark_outline,0,0,0)
+                btnBookmark.text = "Bookmark this film"
+            }
+        }
+
     }
 }

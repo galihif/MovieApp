@@ -27,12 +27,22 @@
 
     <TextView
         android:id="@+id/tv_genre"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/genre"
         android:textSize="24sp"/>
+
+    <Button
+        android:id="@+id/btn_bookmark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:text="bookmark this film"
+        android:drawableLeft="@drawable/ic_bookmark_outline"/>
 
     <TextView
         android:id="@+id/tv_sinopsis"
