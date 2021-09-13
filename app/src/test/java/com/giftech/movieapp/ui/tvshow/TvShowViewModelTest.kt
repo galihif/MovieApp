@@ -3,9 +3,9 @@ package com.giftech.movieapp.ui.tvshow
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.giftech.movieapp.data.FilmRepository
 import com.giftech.movieapp.data.source.local.entity.FilmEntity
-import com.giftech.movieapp.utils.TvShowDummy
 import com.giftech.movieapp.vo.Resource
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert.assertEquals
@@ -30,7 +30,10 @@ class TvShowViewModelTest {
     private lateinit var filmRepository: FilmRepository
 
     @Mock
-    private lateinit var observer: Observer<Resource<List<FilmEntity>>>
+    private lateinit var observer: Observer<Resource<PagedList<FilmEntity>>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<FilmEntity>
 
     @Before
     fun setUp() {
@@ -39,9 +42,11 @@ class TvShowViewModelTest {
 
     @Test
     fun getTvShow() {
-        val dummyTvs = Resource.success(TvShowDummy.generateDummyTvShows())
+//        val dummyTvs = Resource.success(TvShowDummy.generateDummyTvShows())
+        val dummyTvs = Resource.success(pagedList)
+        Mockito.`when`(dummyTvs.data?.size).thenReturn(1)
 
-        val tvs = MutableLiveData<Resource<List<FilmEntity>>>()
+        val tvs = MutableLiveData<Resource<PagedList<FilmEntity>>>()
         tvs.value = dummyTvs
 
         Mockito.`when`(filmRepository.getAllTvs()).thenReturn(tvs)
