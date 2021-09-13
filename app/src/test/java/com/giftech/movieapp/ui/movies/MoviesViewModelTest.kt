@@ -3,9 +3,10 @@ package com.giftech.movieapp.ui.movies
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.giftech.movieapp.data.source.local.entity.FilmEntity
 import com.giftech.movieapp.data.FilmRepository
+import com.giftech.movieapp.data.source.local.entity.FilmEntity
 import com.giftech.movieapp.utils.MovieDummy
+import com.giftech.movieapp.vo.Resource
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
@@ -29,7 +30,7 @@ class MoviesViewModelTest {
     private lateinit var filmRepository: FilmRepository
 
     @Mock
-    private lateinit var observer: Observer<List<FilmEntity>>
+    private lateinit var observer: Observer<Resource<List<FilmEntity>>>
 
     @Before
     fun setUp() {
@@ -38,16 +39,16 @@ class MoviesViewModelTest {
 
     @Test
     fun getMovies() {
-        val dummyMovies = MovieDummy.generateDummyMovies()
+        val dummyMovies = Resource.success(MovieDummy.generateDummyMovies())
 
-        val movies = MutableLiveData<ArrayList<FilmEntity>>()
+        val movies = MutableLiveData<Resource<List<FilmEntity>>>()
         movies.value = dummyMovies
 
         Mockito.`when`(filmRepository.getAllMovies()).thenReturn(movies)
         val moviesEntities = viewModel.getMovies().value
         verify(filmRepository).getAllMovies()
         assertNotNull(moviesEntities)
-        assertEquals(10, moviesEntities?.size)
+        assertEquals(1, moviesEntities?.data?.size)
 
         viewModel.getMovies().observeForever(observer)
         verify(observer).onChanged(dummyMovies)

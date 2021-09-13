@@ -3,9 +3,10 @@ package com.giftech.movieapp.ui.tvshow
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.giftech.movieapp.data.source.local.entity.FilmEntity
 import com.giftech.movieapp.data.FilmRepository
+import com.giftech.movieapp.data.source.local.entity.FilmEntity
 import com.giftech.movieapp.utils.TvShowDummy
+import com.giftech.movieapp.vo.Resource
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
@@ -29,7 +30,7 @@ class TvShowViewModelTest {
     private lateinit var filmRepository: FilmRepository
 
     @Mock
-    private lateinit var observer: Observer<List<FilmEntity>>
+    private lateinit var observer: Observer<Resource<List<FilmEntity>>>
 
     @Before
     fun setUp() {
@@ -38,9 +39,9 @@ class TvShowViewModelTest {
 
     @Test
     fun getTvShow() {
-        val dummyTvs = TvShowDummy.generateDummyTvShows()
+        val dummyTvs = Resource.success(TvShowDummy.generateDummyTvShows())
 
-        val tvs = MutableLiveData<ArrayList<FilmEntity>>()
+        val tvs = MutableLiveData<Resource<List<FilmEntity>>>()
         tvs.value = dummyTvs
 
         Mockito.`when`(filmRepository.getAllTvs()).thenReturn(tvs)
@@ -48,7 +49,7 @@ class TvShowViewModelTest {
         verify(filmRepository).getAllTvs()
 
         assertNotNull(tvsEntities)
-        assertEquals(10, tvsEntities?.size)
+        assertEquals(1, tvsEntities?.data?.size)
 
         viewModel.getTvShow().observeForever(observer)
         verify(observer).onChanged(dummyTvs)

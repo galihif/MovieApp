@@ -7,6 +7,8 @@ import com.giftech.movieapp.data.source.local.entity.FilmEntity
 
 class BookmarkTvshowViewmodel(private val filmRepository: FilmRepository): ViewModel() {
 
+
+
     fun getBookmarkedTvshow():LiveData<List<FilmEntity>> = filmRepository.getBookmarkedTvs()
 
 }
